@@ -50,6 +50,7 @@ void loop() {
   }
 }
 
+// Go into power down state for 0.5s
 void deep_sleep(){
   // Disable the ADC
   static byte prevADCSRA = ADCSRA;
@@ -64,7 +65,7 @@ void deep_sleep(){
   // clear various "reset" flags
   MCUSR = 0;  // allow changes, disable reset
   WDTCR = bit (WDCE) | bit(WDE); // set interrupt mode and an interval
-  WDTCR = bit (WDIE) | bit(WDP2) | bit(WDP0);
+  WDTCR = bit (WDIE) | bit(WDP2) | bit(WDP0); // set the timer (counts) after which to signal an interrupt
   wdt_reset();
 
   interrupts();
